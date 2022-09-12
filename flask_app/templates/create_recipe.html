@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static',filename='/style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css">
+    <title>New Recipe</title>
+<style>
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .formformat {
+        display: flex;
+        justify-content: space-around;
+        width: 500px;
+
+    }
+    .left_side {
+        display: flex;
+        flex-direction: column;
+    }
+    .right_side {
+        display: flex;
+        flex-direction: column;
+    }
+    .recipeForm {
+        display: flex;
+        justify-content: center;
+    }
+</style>
+</head>
+<body>
+    <!-- <div class="container"> -->
+        <div class="nav">
+            <h1>Add a New Recipe</h1>
+            <div class="nav_bar_buttons">
+                <a href="/recipes"class="btn btn-info">Back to recipes</a>
+                <a href="/logout" class="btn btn-info">Logout</a>
+            </div>
+        </div>
+        <div class="recipeForm">
+            <form action="/submit_recipe" method="POST" class="formformat" >
+                <div class="left_side">
+                <!----------------------- Validation  (recipe.py-step 1 of 3)------------------------------>
+                {% with messages = get_flashed_messages() %}    <!-- declare a variable called messages -->
+                    {% if messages %}                           <!-- check if there are any messages -->
+                        {% for message in messages %}           <!-- loop through the messages -->
+                            <p>{{message}}</p>                  <!-- display each message in a paragraph tag -->
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <!-- -- ------------------------- (Create->recipes.py- Step 3 of 5) --------------------------->
+                    <label class="form-label">Name:</label>
+                    <input class="form-control" type="text" name="name">
+                    <label class="form-label">Description: </label>
+                    <textarea class="form-control" type="text" name="description"></textarea>
+                    <label class="form-label">Instructions: </label>
+                    <textarea class="form-control" type="text" name="instructions"></textarea>
+                </div>
+                <div class="right_side">
+                    <label class="form-label">Date Cooked: <input class="form-control" type="date" name="date_cooked"></label>
+                    <div class="form-check form-check-inline">
+                        <p>Under 30 minutes?</p>
+                        <label class="form-check-label">Yes:</label>
+                        <input class="form-check-input" type="radio" name="under_30" value="yes">
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label">No:</label>
+                        <input class="form-check-input" type="radio" name="under_30" value="no">
+                    </div>
+                    <input type="submit" value="Submit Recipe">
+                </div>
+            </form>
+        </div>
+    <!-- </div> -->
+</body>
+</html>
